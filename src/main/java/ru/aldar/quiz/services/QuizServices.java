@@ -2,10 +2,13 @@ package ru.aldar.quiz.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import ru.aldar.quiz.domain.Quiz;
 import ru.aldar.quiz.repository.QuizRepository;
 
 import javax.transaction.Transactional;
+
 import java.util.List;
 
 @Service
@@ -19,7 +22,12 @@ public class QuizServices {
         return quizRepository.findAll();
     }
 
-    public List<Quiz> listByParams(String sortName, String filterName) {
+    public List<Quiz> listByParams(String name,
+                                   Long start,
+                                   Boolean enable,
+                                   String sortName,
+                                   Long page,
+                                   Long size) {
         return quizRepository.findAll();
     }
 
