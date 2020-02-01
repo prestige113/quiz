@@ -1,16 +1,17 @@
 package ru.aldar.quiz.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ru.aldar.quiz.domain.Quiz;
 import ru.aldar.quiz.utils.Utils;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class QuizSearchService {
@@ -59,6 +60,6 @@ public class QuizSearchService {
             }
         }
 
-        return em.createQuery(query.select(from).where(builder.and(predicates.toArray(new Predicate[]{})))).setFirstResult(page * size).setMaxResults(size).getResultList();
+        return em.createQuery(query.select(from).where(builder.and(predicates.toArray(new Predicate[]{})))).setFirstResult(size == 1 ? 0 : (page - 1) * size).setMaxResults(size).getResultList();
     }
 }
